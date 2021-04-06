@@ -56,12 +56,9 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axios)
 export default {
-  name: 'signup',
+  name: "signup",
   data() {
     return {
       firstName: "",
@@ -71,17 +68,21 @@ export default {
     };
   },
   methods: {
-    signup: function () {
+    signup() {
       const user = {
         firstname: this.firstName,
         lastname: this.lastName,
         email: this.email,
         password: this.password,
       };
-
-      this.$http.post(
-          "http://localhost:3000/users/signup/", user
-      )
+      axios.post("http://localhost:3000/user/signup/", user)
+        .then((response) => {
+          this.post = response.data;
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.isAlert = true;
+        });
     },
   },
 };

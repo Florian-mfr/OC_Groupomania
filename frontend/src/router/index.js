@@ -30,37 +30,3 @@ const router = new VueRouter({
 })
 
 export default router
-
-/*import Vue from 'vue'
-import VueRouter from 'vue-router'
-import signup from '../views/signup.vue'
-
-Vue.use(VueRouter)
-
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: require('../views/Home.vue')
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: ('../views/About.vue')
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: signup
-  }
-]
-
-const router = new VueRouter({
-
-  mode: 'history',
-
-  routes
-  
-})
-
-export default router*/
