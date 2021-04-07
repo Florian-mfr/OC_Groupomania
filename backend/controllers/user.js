@@ -1,23 +1,12 @@
 const mysql = require('mysql')
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto')
+const db = require('../dbConnect.js')
+require('dotenv').config()
 
-function dbconnect() {
 
-    var con = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "groupomania"
-    });
-
-    con.connect();
-
-    return con;
-}
 
 exports.signup = (req, res, next) => {
-    let db = dbconnect()
 
     let firstname = req.body.firstname
     let lastname = req.body.lastname
@@ -33,32 +22,23 @@ exports.signup = (req, res, next) => {
 
     db.query('INSERT INTO users SET firstname=?, lastname=?, email=?, password=? ', data, (err, user, field) => {
         if (err) throw err;
+        if(user) {
+            console.log('Inscription réussi ! ')
+        }
     })
 }
 
 exports.login = (req, res, next) => {
-    User.findOne({ email: req.body.email })
-        .then(user => {
-            if (!user) {
-                return res.status(401).json({ error: 'Utilisateur non trouvé !' });
-            }
-            bcrypt.compare(req.body.password, user.password)
-                .then(valid => {
-                    if (!valid) {
-                        return res.status(401).json({ error: 'Mot de passe incorrect !' });
-                    }
-                    const email = maskEmail(req.body.email);
-                    res.status(200).json({
-                        userId: user._id,
-                        email,
-                        token: jwt.sign(
-                            { userId: user._id },
-                            process.env.JWT_PASSWORD,
-                            { expiresIn: '24h' }
-                        )
-                    });
-                })
-                .catch(error => res.status(500).json({ error }));
+    
+    let email = req.body.email
+    let password = req.body.password
+
+    const hash = crypto.createHmac('sha256', password)
+        .update('15h64luy4qze5gj46')
+        .digest('hex');
+
+    db.query(`SELECT * FROM users WHERE email=${email} AND password=${hash}`,(err, result, field) => {
+        if (err) throw err;
+            console.log('Connection réussi !')
         })
-        .catch(error => res.status(500).json({ error }));
 };

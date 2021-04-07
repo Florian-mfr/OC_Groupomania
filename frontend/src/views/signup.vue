@@ -1,5 +1,9 @@
 <template>
   <div id="signup">
+    <div id="nav">
+      <router-link to="/">Accueil</router-link> |
+      <router-link to="/signup">S'inscrire</router-link>
+    </div>
     <form method="POST" id="form">
       <label for="firstName">Prénom :</label>
       <div>
@@ -56,17 +60,15 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
+
 export default {
-  name: "signup",
-  data() {
-    return {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-    };
-  },
+  data: () => ({
+    firstName: "maria",
+    lastName: "rosa",
+    email: "maria@mail.com",
+    password: "123",
+  }),
   methods: {
     signup() {
       const user = {
@@ -75,14 +77,26 @@ export default {
         email: this.email,
         password: this.password,
       };
-      axios.post("http://localhost:3000/user/signup/", user)
-        .then((response) => {
-          this.post = response.data;
+      axios
+        .post("http://localhost:3000/users/signup", user,
+          {headers: {"Content-Type": "application/json"}})
+        .then((res) => {
+          console.log(res)
+            location.href = "/";
         })
         .catch((error) => {
-          this.errorMessage = error.response.data.message;
-          this.isAlert = true;
-        });
+          console.log(error)
+          });
+
+      /*axios
+        .post("http://localhost:3000/user/signup", user)
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+        })
+        .catch((error) => {
+          console.log(error);
+        });*/
     },
   },
 };

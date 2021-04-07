@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="POST" id="form">
+        <label for="firstName">Prénom :</label>
+        <div>
+            <input type="text" name="prenom" id="firstName" required="required" />
+        </div>
+        <br />
+        <label for="lastName">Nom :</label>
+        <div>
+            <input type="text" name="nom" id="lastName" required="required" />
+        </div>
+        <br />
+        <label for="email">Adresse e-mail :</label>
+        <div>
+            <input type="email" name="email" id="email" required="required" />
+        </div>
+        <br />
+        <label for="password">Mot de passe :</label>
+        <div>
+            <input type="password" name="password" id="password" required="required" />
+        </div>
+        <br />
+        <input id="form-btn" type="submit" value="Valider l'inscription" />
+    </form>
+    <script>
+        document.getElementById('form-btn').addEventListener('click', function (e) {
+            e.preventDefault()
+            let firstName = document.querySelector('#firstName')
+            let lastName = document.querySelector('#lastName')
+            let email = document.querySelector('#email')
+            let password = document.querySelector('#password')
+
+            const firstnameValue = firstName.value
+            const lastnameValue = lastName.value
+            const emailValue = email.value
+            const passwordValue = password.value
+
+            const user = {
+                firstName: firstnameValue,
+                lastName: lastnameValue,
+                email: emailValue,
+                password: passwordValue
+
+            }
+            const reqInit = {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            }
+            function postRequest() {
+                fetch('http://localhost:3000/user/signup', reqInit)
+                    .then((response) => response.json())
+                    .then((json) => {
+                        console.log(json)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            } postRequest()
+        })
+    </script>
+</body>
+
+</html>
