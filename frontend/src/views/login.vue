@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div id="nav">
-      <router-link to="/">Accueil</router-link> |
+      <router-link to="/home">Accueil</router-link> |
       <router-link to="/signup">S'inscrire</router-link>
     </div>
     <h1>Groupomania</h1>
