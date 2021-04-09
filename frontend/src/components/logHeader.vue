@@ -1,25 +1,22 @@
 <template>
-  <div id="header">
+  <div id="logHeader">
     <router-link to="/home">
-    <div href="" class="header_logo">
-      <img src="../assets/logo_couleur.png" alt="" class="logo_img" />
-    </div>
-    </router-link>
-    <router-link to="/profile">
-    <span href="" class="header_account">Mon compte</span>
+      <div class="header_logo">
+        <img src="../assets/logo_couleur.png" alt="" class="logo_img" />
+      </div>
     </router-link>
     <router-link to="/">
-    <span href="" class="header_disconnect">Se déconnecter</span>
+      <span class="header_login">Se connecter</span>
     </router-link>
-    
-    
-    
+    <router-link to="/signup">
+      <span class="header_signup">S'inscrire</span>
+    </router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Header",
+  name: "logHeader",
 };
 </script>
 
@@ -30,7 +27,7 @@ a {
   margin: 0;
   padding: 0;
 }
-#header {
+#logHeader {
   display: grid;
   align-items: center;
   grid-template-columns: 3fr 1fr 1fr;
@@ -50,37 +47,38 @@ a {
     width: 300px;
   }
 }
-.header_account {
+.header_login {
   font-weight: bold;
   color: rgb(79, 175, 154);
   margin: 5px;
 }
-.header_disconnect {
+.header_signup {
   font-weight: bold;
   color: rgb(79, 175, 154);
   margin: 5px;
 }
 
 @media screen and (max-width: 750px) {
-  #header {
-    grid-template-columns:1fr 1fr;
+  #logHeader {
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 80px 50px;
     .header_logo {
-        grid-column: 1/3;
-        grid-row: 1;
-        justify-content: center;
-        .logo_img {
-            width: 220px;
-            margin: 5px;
-        }
+      grid-column: 1/3;
+      grid-row: 1;
+      justify-content: center;
+      .logo_img {
+        width: 220px;
+        margin: 5px;
+      }
     }
-    .header_account {
-        grid-column: 1/2;
-        grid-row: 2;
+    .header_login {
+      grid-column: 1/2;
+      grid-row: 2;
     }
-    .header_disconnect {
-        grid-column: 2/3;
-        grid-row: 2;}
+    .header_signup {
+      grid-column: 2/3;
+      grid-row: 2;
+    }
   }
 }
 </style>

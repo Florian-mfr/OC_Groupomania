@@ -1,9 +1,6 @@
 <template>
   <div id="signup">
-    <div id="nav">
-      <router-link to="/">Accueil</router-link> |
-      <router-link to="/signup">S'inscrire</router-link>
-    </div>
+    <logHeader></logHeader>
     <form method="POST" id="form">
       <label for="firstName">Prénom :</label>
       <div>
@@ -53,7 +50,7 @@
         id="form-btn"
         type="submit"
         value="Valider l'inscription"
-        v-on:click="signup()"
+        v-on:click.prevent="signup()"
       />
     </form>
   </div>
@@ -61,13 +58,17 @@
 
 <script>
 import axios from "axios";
+import logHeader from "../components/logHeader.vue";
 
 export default {
+  components: {
+    logHeader,
+  },
   data: () => ({
-    firstName: "maria",
-    lastName: "rosa",
-    email: "maria@mail.com",
-    password: "123",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   }),
   methods: {
     signup() {
@@ -76,17 +77,17 @@ export default {
         lastname: this.lastName,
         email: this.email,
         password: this.password,
+        id: "",
       };
       axios
-        .post("http://localhost:3000/users/signup", user,
-          {headers: {"Content-Type": "application/json"}})
+        .post("http://localhost:3000/users/signup", user)
         .then((res) => {
           console.log(res)
-            location.href = "/";
+          location.href ='/home'
         })
         .catch((error) => {
-          console.log(error)
-          });
+          console.log(error);
+        });
 
       /*axios
         .post("http://localhost:3000/user/signup", user)
@@ -101,3 +102,35 @@ export default {
   },
 };
 </script>
+
+<style scoped lang='scss'>
+#signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#form {
+  margin: 50px 0;
+  label {
+    font-weight: bold;
+  }
+  #firstName,
+  #lastName,
+  #email,
+  #password {
+    height: 20px;
+    width: 200px;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 10px;
+  }
+  #form-btn {
+    border-style: none;
+    background-color: rgb(79, 175, 154);
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+</style>

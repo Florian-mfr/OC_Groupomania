@@ -1,49 +1,45 @@
 <template>
-  <div class="login">
-    <div id="nav">
-      <router-link to="/home">Accueil</router-link> |
-      <router-link to="/signup">S'inscrire</router-link>
-    </div>
-    <h1>Groupomania</h1>
-    <div id="signup">
-      <form method="POST" id="form">
-        <label for="email">Adresse e-mail :</label>
-        <div>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            required="required"
-            v-model="email"
-          />
-        </div>
-        <br />
-        <label for="password">Mot de passe :</label>
-        <div>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            required="required"
-            v-model="password"
-          />
-        </div>
-        <br />
+  <div id="login">
+    <logHeader></logHeader>
+    <form method="POST" id="form">
+      <label for="email">Adresse e-mail :</label>
+      <div>
         <input
-          id="form-btn"
-          type="submit"
-          value="Se connecter"
-          v-on:click="signup()"
+          type="email"
+          name="email"
+          id="email"
+          required="required"
+          v-model="email"
         />
-      </form>
-    </div>
+      </div>
+      <br />
+      <label for="password">Mot de passe :</label>
+      <div>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          required="required"
+          v-model="password"
+        />
+      </div>
+      <br />
+      <input
+        id="form-btn"
+        type="submit"
+        value="Se connecter"
+        v-on:click.prevent="signup()"
+      />
+    </form>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import logHeader from "../components/logHeader.vue";
 
 export default {
+  components: { logHeader },
   data() {
     return {
       email: "",
@@ -58,14 +54,46 @@ export default {
       };
       axios
         .post("http://localhost:3000/users/login", user)
-        .then((response) => response.json())
-        .then((json) => {
-          console.log(json);
+        .then((res) => {
+          console.log(res)
+          setTimeout(() => {
+            this.$router.push({ path: "/home" });
+          }, 1000);
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
         });
     },
   },
 };
 </script>
+
+<style scoped lang='scss'>
+#login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#form {
+  margin: 50px 0;
+  label {
+    font-weight: bold;
+  }
+  #email, #password {
+    height: 20px;
+    width: 200px;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 10px;
+  }
+  #form-btn {
+    border-style: none;
+    background-color:rgb(79, 175, 154);
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+}
+</style>

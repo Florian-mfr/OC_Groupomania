@@ -1,4 +1,4 @@
-const db = require('../dbConnect')
+const db = require('../dbConnect.js')
 const fs = require('fs');
 
 exports.createPost = (req, res, next) => {
