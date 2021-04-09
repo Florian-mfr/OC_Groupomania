@@ -5,7 +5,7 @@
       <img src="../assets/logo_couleur.png" alt="" class="logo_img" />
     </div>
     </router-link>
-    <router-link to="/profile">
+    <router-link to="/account">
     <span href="" class="header_account">Mon compte</span>
     </router-link>
     <router-link to="/">

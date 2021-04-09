@@ -3,22 +3,27 @@
     <Header></Header>
     <div class="post-input">
       <input
+        v-model="tittle"
         type="text"
         placeholder="Titre du post"
         class="input_tittle"
       /><br />
       <input
+        v-model="content"
         type="text"
         placeholder="Ecrivez votre post ici !"
         class="input_text"
       /><br />
-      <button @click='getAllPosts()' class="btn-publier">Publier</button>
+      <button @click="createPost()" class="btn-publier">Publier</button>
     </div>
+    <button @click="getAllPosts()" class="btn-publier">
+      Afficher les posts
+    </button>
     <Post
       v-for="post in posts"
       :key="post.id"
       :userId="post.userId"
-      :postDate="post.postDate"
+      :postDate="dateTimeDisplay(post.postDate)"
       :content="post.content"
       :tittle="post.tittle"
       :id="post.id"
@@ -36,6 +41,9 @@ export default {
   data: () => {
     return {
       posts: [],
+      tittle:"",
+      content:"",
+      testDate: '2021-04-08T23:07:22.000Z'
     }
   },
   components: {
@@ -58,7 +66,26 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+        },
+    createPost() {
+      const createdPost = {
+        tittle: this.tittle,
+        content: this.content,
+        userId: 1
+      }
+      axios.post("http://localhost:3000/posts/", createdPost)
+      .then((res) => {
+          console.log(res)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
+    dateTimeDisplay(dateString) {
+      let chars = dateString.split('')
+      let postDate = "le "+chars[8]+chars[9]+'/'+chars[5]+chars[6]+'/'+chars[2]+chars[3]+' à '+chars[11]+chars[12]+'h'+chars[14]+chars[15]
+      return postDate
+    }
   },
 };
 </script>

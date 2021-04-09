@@ -33,41 +33,13 @@
         <input id="form-btn" type="submit" value="Valider l'inscription" />
     </form>
     <script>
-        document.getElementById('form-btn').addEventListener('click', function (e) {
-            e.preventDefault()
-            let firstName = document.querySelector('#firstName')
-            let lastName = document.querySelector('#lastName')
-            let email = document.querySelector('#email')
-            let password = document.querySelector('#password')
-
-            const firstnameValue = firstName.value
-            const lastnameValue = lastName.value
-            const emailValue = email.value
-            const passwordValue = password.value
-
-            const user = {
-                firstName: firstnameValue,
-                lastName: lastnameValue,
-                email: emailValue,
-                password: passwordValue
-
-            }
-            const reqInit = {
-                method: 'POST',
-                body: JSON.stringify(user),
-                headers: { 'Content-Type': 'application/json; charset=utf-8' },
-            }
-            function postRequest() {
-                fetch('http://localhost:3000/user/signup', reqInit)
-                    .then((response) => response.json())
-                    .then((json) => {
-                        console.log(json)
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-            } postRequest()
-        })
+       let date = '2021-04-08T23:07:22.000Z'
+       function dateD(dateTime) {
+        const chars = dateTime.split('')
+        postDate = "le "+chars[8]+chars[9]+'/'+chars[5]+chars[6]+'/'+chars[2]+chars[3]+' à '+chars[11]+chars[12]+'h'+chars[14]+chars[15]
+        console.log(postDate)
+    }
+    console.log(dateD(date)) 
     </script>
 </body>
 

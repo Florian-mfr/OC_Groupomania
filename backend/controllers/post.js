@@ -3,14 +3,13 @@ const fs = require('fs');
 
 exports.createPost = (req, res, next) => {
 
-    let postDate = req.body.postDate
     let tittle = req.body.tittle
     let content = req.body.content
     let userId = req.body.userId
 
-    let data = [postDate, tittle, content, userId]
+    let data = [tittle, content, userId]
 
-    db.query('INSERT INTO posts SET postDate=?, tittle=?, content=?, userId=? ', data, (err, result, field) => {
+    db.query('INSERT INTO posts SET tittle=?, content=?, userId=? ', data, (err, result, field) => {
         if(err) throw (err);
         return res.status(201).json({ message: 'Post enregistré !' });
     })
