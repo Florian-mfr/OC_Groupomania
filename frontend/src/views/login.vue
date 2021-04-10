@@ -36,7 +36,7 @@
 
 <script>
 import axios from "axios";
-import logHeader from "../components/logHeader.vue";
+import logHeader from "../components/logHeader";
 
 export default {
   components: { logHeader },
