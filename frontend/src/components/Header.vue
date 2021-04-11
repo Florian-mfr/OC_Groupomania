@@ -6,10 +6,10 @@
     </div>
     </router-link>
     <router-link to="/account">
-    <span href="" class="header_account">Mon compte</span>
+    <span class="header_account">Mon compte</span>
     </router-link>
     <router-link to="/">
-    <span href="" class="header_disconnect">Se déconnecter</span>
+    <span class="header_disconnect">Se déconnecter</span>
     </router-link>
     
     

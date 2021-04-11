@@ -83,22 +83,12 @@ export default {
         .post("http://localhost:3000/users/signup", user)
         .then((res) => {
           console.log(res)
-          location.href ='/home'
+          this.$router.push({ path: "home" });
         })
         .catch((error) => {
           console.log(error);
         });
-
-      /*axios
-        .post("http://localhost:3000/user/signup", user)
-        .then((response) => response.json())
-        .then((json) => {
-          console.log(json);
-        })
-        .catch((error) => {
-          console.log(error);
-        });*/
-    },
+    }
   },
 };
 </script>

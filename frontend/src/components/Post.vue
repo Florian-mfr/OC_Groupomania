@@ -1,46 +1,76 @@
 <template>
-<div>
-  <div class="post">
-    <div class="post_header">
-      <p class="header_name">Prenom Nom</p>
-      <h2 class="header_tittle">{{tittle}}</h2>
-      <span class="header_time">{{postDate}}</span>
-    </div>
-    <p class="post_text">
-      {{content}}
-    </p>
-    <div class="post_comment">
-      <p class="comment_name">Prenom Nom</p>
-      <p class="comment_text">
-        un commentaire un commentaire un commentaire un commentaire un
-        commentaire un commentaire
+  <div>
+    <div class="post">
+      <div class="post_header">
+        <p class="header_name">Prenom Nom</p>
+        <h2 class="header_tittle">{{ tittle }}</h2>
+        <span class="header_time">{{ postDate }}</span>
+      </div>
+      <p class="post_text">
+        {{ content }}
       </p>
-      <span class="comment_time">le XX/XX à 00h00</span>
-    </div>
-    <div class="user_comment">
-      <input
-        type="text"
-        placeholder=" Votre commentaire..."
-        class="comment_input"
-      />
+      <div v-for="comment in comments" :key="comment.id" class="post_comment">
+        <p class="comment_name">Prenom Nom</p>
+        <p class="comment_text">
+          {{comment.commentContent}}
+        </p>
+        <span class="comment_time">{{dateTimeDisplay(comment.commentDate)}}</span>
+      </div>
+      <div class="user_comment">
+        <input
+          v-model="commentContent"
+          type="text"
+          placeholder=" Votre commentaire..."
+          class="comment_input"
+        />
+        <button @click.prevent="sendComment(id); getPostComments(id)" class="comment_btn">Publier</button>
+        <button @click.prevent="getPostComments(id)" class="comment_btn">get comment</button>
+      </div>
     </div>
   </div>
-</div>
-  
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
-    props: ["userId", "content", "tittle", "id", "postDate"],
+  props: ["userId", "content", "tittle", "id", "postDate"],
   name: "Post",
 
   data: () => {
     return {
-      comments: [],
+      commentContent: '',
+      comments:[]
     };
   },
   methods: {
+    sendComment(id) {
+      const commentData = {
+        content: this.commentContent,
+        postId: id,
+        userId: 1,
+      };
+      axios
+        .post("http://localhost:3000/posts/comments/", commentData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getPostComments(id) {
+      axios.get(`http://localhost:3000/posts/comments/${id}`)
+      .then(res => {
+        console.log(res)
+        this.comments = res.data.result
+      })
+    },
+    dateTimeDisplay(dateString) {
+      let chars = dateString.split('')
+      let commentDate = "le "+chars[8]+chars[9]+'/'+chars[5]+chars[6]+'/'+chars[2]+chars[3]+' à '+chars[11]+chars[12]+'h'+chars[14]+chars[15]
+      return commentDate
+    }
   },
 };
 </script>
@@ -123,6 +153,15 @@ export default {
       min-width: 200px;
       height: 30px;
       border-radius: 10px;
+    }
+    .comment_btn {
+      background-color: rgb(79, 175, 154);
+      color: rgb(255, 255, 255);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      padding: 5px 15px;
+      margin: 0 10px;
     }
   }
 }

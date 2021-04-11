@@ -57,7 +57,7 @@ export default {
         .then((res) => {
           console.log(res)
           setTimeout(() => {
-            this.$router.push({ path: "/home" });
+            this.$router.push({ path: "home" });
           }, 1000);
         })
         .catch((error) => {

@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import Header from "../components/Header.vue";
-import Post from "../components/Post.vue";
+import Header from "../components/Header";
+import Post from "../components/Post";
 import axios from 'axios'
 
 export default {
@@ -43,7 +43,6 @@ export default {
       posts: [],
       tittle:"",
       content:"",
-      testDate: '2021-04-08T23:07:22.000Z'
     }
   },
   components: {
@@ -68,12 +67,12 @@ export default {
         });
         },
     createPost() {
-      const createdPost = {
+      const postData = {
         tittle: this.tittle,
         content: this.content,
         userId: 1
       }
-      axios.post("http://localhost:3000/posts/", createdPost)
+      axios.post("http://localhost:3000/posts/", postData)
       .then((res) => {
           console.log(res)
         })
