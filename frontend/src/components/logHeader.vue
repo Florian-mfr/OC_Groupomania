@@ -20,7 +20,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style lang='scss'>
 *,
 a {
   text-decoration: none;

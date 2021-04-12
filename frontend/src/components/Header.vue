@@ -23,7 +23,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style lang='scss'>
 *,
 a {
   text-decoration: none;
@@ -80,7 +80,8 @@ a {
     }
     .header_disconnect {
         grid-column: 2/3;
-        grid-row: 2;}
+        grid-row: 2;
+    }
   }
 }
 </style>

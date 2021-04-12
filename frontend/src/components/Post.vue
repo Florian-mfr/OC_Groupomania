@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="post">
       <div class="post_header">
         <p class="header_name">Prenom Nom</p>
@@ -27,7 +26,6 @@
         <button @click.prevent="getPostComments(id)" class="comment_btn">get comment</button>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -54,6 +52,7 @@ export default {
         .post("http://localhost:3000/posts/comments/", commentData)
         .then((res) => {
           console.log(res);
+          this.getPostComments(commentData.postId)
         })
         .catch((error) => {
           console.log(error);
@@ -63,7 +62,8 @@ export default {
       axios.get(`http://localhost:3000/posts/comments/${id}`)
       .then(res => {
         console.log(res)
-        this.comments = res.data.result
+        this.comments = res.data.result;
+        this.commentContent = ''
       })
     },
     dateTimeDisplay(dateString) {

@@ -89,7 +89,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style lang='scss'>
 #home {
   display: flex;
   flex-direction: column;
