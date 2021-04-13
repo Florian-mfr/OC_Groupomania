@@ -1,16 +1,18 @@
 <template>
   <div id="logHeader">
-    <router-link to="/home">
-      <div class="header_logo">
+    <div class="header_logo">
+      <router-link to="/home">
         <img src="../assets/logo_couleur.png" alt="" class="logo_img" />
-      </div>
-    </router-link>
-    <router-link to="/">
-      <span class="header_login">Se connecter</span>
-    </router-link>
-    <router-link to="/signup">
-      <span class="header_signup">S'inscrire</span>
-    </router-link>
+      </router-link>
+    </div>
+
+    <span class="header_login">
+      <router-link to="/">Se connecter</router-link>
+    </span>
+
+    <span class="header_signup">
+      <router-link to="/signup">S'inscrire</router-link>
+    </span>
   </div>
 </template>
 

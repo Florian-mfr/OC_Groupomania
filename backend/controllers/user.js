@@ -46,10 +46,10 @@ exports.login = (req, res, next) => {
                 }
                 const email = maskEmail(req.body.email);
                 res.status(200).json({
-                    userId: user._id,
+                    userId: result[0]._id,
                     email,
                     token: jwt.sign(
-                        { userId: user._id },
+                        { userId: result[0]._id },
                         process.env.JWT_PASSWORD,
                         { expiresIn: '24h' }
                     )
@@ -59,3 +59,11 @@ exports.login = (req, res, next) => {
         console.log('Connection réussi !')
     })
 };
+
+exports.getUser = (req, res, next) => {
+    let id = req.params.id
+  db.query('SELECT * FROM users WHERE id=?',id ,(err, result, field) => {
+    if (err) throw (err);
+    return res.status(200).json({ result });
+  })
+}

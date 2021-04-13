@@ -1,31 +1,40 @@
 <template>
-    <div class="post">
-      <div class="post_header">
-        <p class="header_name">Prenom Nom</p>
-        <h2 class="header_tittle">{{ tittle }}</h2>
-        <span class="header_time">{{ postDate }}</span>
-      </div>
-      <p class="post_text">
-        {{ content }}
-      </p>
-      <div v-for="comment in comments" :key="comment.id" class="post_comment">
-        <p class="comment_name">Prenom Nom</p>
-        <p class="comment_text">
-          {{comment.commentContent}}
-        </p>
-        <span class="comment_time">{{dateTimeDisplay(comment.commentDate)}}</span>
-      </div>
-      <div class="user_comment">
-        <input
-          v-model="commentContent"
-          type="text"
-          placeholder=" Votre commentaire..."
-          class="comment_input"
-        />
-        <button @click.prevent="sendComment(id); getPostComments(id)" class="comment_btn">Publier</button>
-        <button @click.prevent="getPostComments(id)" class="comment_btn">get comment</button>
-      </div>
+  <div class="post">
+    <div class="post_header">
+      <p class="header_name">{{firstName}} {{lastName}}</p>
+      <h2 class="header_tittle">{{ tittle }}</h2>
+      <span class="header_time">{{ postDate }}</span>
     </div>
+    <p class="post_text">
+      {{ content }}
+    </p>
+    <div v-for="comment in comments" :key="comment.id" class="post_comment">
+      <p class="comment_name">{{firstName}} {{lastName}}</p>
+      <p class="comment_text">
+        {{ comment.commentContent }}
+      </p>
+      <span class="comment_time">{{
+        dateTimeDisplay(comment.commentDate)
+      }}</span>
+    </div>
+    <div class="user_comment">
+      <input
+        v-model="commentContent"
+        type="text"
+        placeholder=" Votre commentaire..."
+        class="comment_input"
+      />
+      <button
+        @click.prevent="
+          sendComment(id);
+          getPostComments(id);
+        "
+        class="comment_btn"
+      >
+        Publier
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -37,11 +46,28 @@ export default {
 
   data: () => {
     return {
-      commentContent: '',
-      comments:[]
+      commentContent: "",
+      comments: [],
+      lastName: '',
+      firstName: '',
     };
   },
   methods: {
+    getUser(userId) {
+      axios
+        .get(`http://localhost:3000/users/${userId}`, {
+          headers: {
+            Authorization: `token ${this.$store.state.tokenToCheck}`,
+          },
+        })
+        .then((res) => {
+          this.firstName = res.data.result[0].firstname;
+          this.lastName = res.data.result[0].lastname;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     sendComment(id) {
       const commentData = {
         content: this.commentContent,
@@ -51,8 +77,9 @@ export default {
       axios
         .post("http://localhost:3000/posts/comments/", commentData)
         .then((res) => {
-          console.log(res);
-          this.getPostComments(commentData.postId)
+          console.log(res)
+          this.getPostComments(commentData.postId);
+          this.commentContent = "";
         })
         .catch((error) => {
           console.log(error);
@@ -60,18 +87,41 @@ export default {
     },
     getPostComments(id) {
       axios.get(`http://localhost:3000/posts/comments/${id}`)
-      .then(res => {
-        console.log(res)
+      .then((res) => {
         this.comments = res.data.result;
-        this.commentContent = ''
-      })
+        for (let i = 0; i < res.data.result.length; i++) {
+          const comment = res.data.result[i];
+          let userId = comment.userId
+          this.getUser(userId)
+          
+        }
+      });
     },
     dateTimeDisplay(dateString) {
-      let chars = dateString.split('')
-      let commentDate = "le "+chars[8]+chars[9]+'/'+chars[5]+chars[6]+'/'+chars[2]+chars[3]+' à '+chars[11]+chars[12]+'h'+chars[14]+chars[15]
-      return commentDate
-    }
+      let chars = dateString.split("");
+      let commentDate =
+        "le " +
+        chars[8] +
+        chars[9] +
+        "/" +
+        chars[5] +
+        chars[6] +
+        "/" +
+        chars[2] +
+        chars[3] +
+        " à " +
+        chars[11] +
+        chars[12] +
+        "h" +
+        chars[14] +
+        chars[15];
+      return commentDate;
+    },
   },
+  mounted () {
+    this.getUser(this.userId)
+    this.getPostComments(this.id)
+  }
 };
 </script>
 
@@ -94,7 +144,7 @@ export default {
     }
     .header_tittle {
       font-size: 1.3em;
-      margin: 0 5px;
+      margin: 5px 0px;
     }
     .header_time {
       font-size: 0.8em;

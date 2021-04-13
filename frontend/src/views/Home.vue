@@ -16,9 +16,6 @@
       /><br />
       <button @click="createPost()" class="btn-publier">Publier</button>
     </div>
-    <button @click="getAllPosts()" class="btn-publier">
-      Afficher les posts
-    </button>
     <Post
       v-for="post in posts"
       :key="post.id"
@@ -86,6 +83,9 @@ export default {
       return postDate
     }
   },
+  mounted() {
+    this.getAllPosts()
+  }
 };
 </script>
 

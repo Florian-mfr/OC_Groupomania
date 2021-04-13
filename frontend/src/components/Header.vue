@@ -1,19 +1,17 @@
 <template>
   <div id="header">
-    <router-link to="/home">
     <div href="" class="header_logo">
-      <img src="../assets/logo_couleur.png" alt="" class="logo_img" />
+      <router-link to="/home">
+        <img src="../assets/logo_couleur.png" alt="" class="logo_img" />
+      </router-link>
     </div>
-    </router-link>
-    <router-link to="/account">
-    <span class="header_account">Mon compte</span>
-    </router-link>
-    <router-link to="/">
-    <span class="header_disconnect">Se déconnecter</span>
-    </router-link>
-    
-    
-    
+
+    <span class="header_account">
+      <router-link to="/account"> Mon compte </router-link>
+    </span>
+    <span class="header_disconnect">
+      <router-link to="/"> Se déconnecter </router-link>
+    </span>
   </div>
 </template>
 
@@ -63,24 +61,24 @@ a {
 
 @media screen and (max-width: 750px) {
   #header {
-    grid-template-columns:1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 80px 50px;
     .header_logo {
-        grid-column: 1/3;
-        grid-row: 1;
-        justify-content: center;
-        .logo_img {
-            width: 220px;
-            margin: 5px;
-        }
+      grid-column: 1/3;
+      grid-row: 1;
+      justify-content: center;
+      .logo_img {
+        width: 220px;
+        margin: 5px;
+      }
     }
     .header_account {
-        grid-column: 1/2;
-        grid-row: 2;
+      grid-column: 1/2;
+      grid-row: 2;
     }
     .header_disconnect {
-        grid-column: 2/3;
-        grid-row: 2;
+      grid-column: 2/3;
+      grid-row: 2;
     }
   }
 }
