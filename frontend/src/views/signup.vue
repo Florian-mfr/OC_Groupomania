@@ -77,7 +77,6 @@ export default {
         lastname: this.lastName,
         email: this.email,
         password: this.password,
-        id: "",
       };
       axios
         .post("http://localhost:3000/users/signup", user)

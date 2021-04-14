@@ -9,7 +9,7 @@
     <span class="header_account">
       <router-link to="/account"> Mon compte </router-link>
     </span>
-    <span class="header_disconnect">
+    <span class="header_disconnect" @click="logOut()">
       <router-link to="/"> Se déconnecter </router-link>
     </span>
   </div>
@@ -18,6 +18,12 @@
 <script>
 export default {
   name: "Header",
+  methods: {
+    logOut () {
+      this.$store.commit('LOGOUT')
+      this.$router.push({path: '/'})
+    }
+  },
 };
 </script>
 

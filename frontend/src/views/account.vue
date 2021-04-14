@@ -4,11 +4,12 @@
     <h2>Gérer mon compte</h2>
     <div class="account_options">
       <div class="options_password">
+        <span>{{firstName}} {{lastName}}</span>
         <span>Changer le mot de passe</span>
         <form action="">
           <label for="change password">Nouveau mot de passe :</label>
           <input v-model="newPassword" type="text" class="password_input" />
-          <button class="password-btn">Valider</button>
+          <button @click.prevent="changePassword(newPassword)" class="password-btn">Valider</button>
         </form>
       </div>
       <div class="options_delete">
@@ -20,15 +21,57 @@
 
 <script>
 import Header from "../components/Header";
+import axios from "axios"
 
 export default {
   name: "account",
-  /*data: () => {
-        newPassword: "",
-    },*/
   components: {
     Header,
   },
+  data: () => {
+    return {
+    firstName: '',
+    lastName: '',
+    newPassword: ''
+    }
+  },
+  methods: {
+    getUser(userId) {
+      axios
+        .get(`http://localhost:3000/users/${userId}`, {
+          headers: {
+            Authorization: `token ${this.$store.state.token}`,
+          },
+        })
+        .then((res) => {
+          this.firstName = res.data.result[0].firstname;
+          this.lastName = res.data.result[0].lastname;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    changePassword(newPassword) {
+      let passwordObject = {
+        password: newPassword,
+        userId: this.$store.state.userId
+      }
+      axios.put('http://localhost:3000/users/changePassword', passwordObject, { headers: {
+                'Authorization': `token ${this.$store.state.token}`
+                }})
+      .then(res => {
+        console.log(res)
+        alert('Mot de passe modifié avec succès')
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
+    }
+  },
+  mounted() {
+    this.getUser(this.$store.state.userId)
+  }
 };
 </script>
 

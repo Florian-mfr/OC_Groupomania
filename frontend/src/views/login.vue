@@ -56,9 +56,10 @@ export default {
         .post("http://localhost:3000/users/login", user)
         .then((res) => {
           console.log(res)
-          setTimeout(() => {
-            this.$router.push({ path: "/home" });
-          }, 1000);
+          this.$store.state.userId = res.data.userId
+          this.$store.state.email = res.data.email
+          this.$store.state.token = res.data.token
+          this.$router.push({ path: "/home" });
         })
         .catch((error) => {
           console.log(error);

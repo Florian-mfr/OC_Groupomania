@@ -72,7 +72,7 @@ export default {
       const commentData = {
         content: this.commentContent,
         postId: id,
-        userId: 1,
+        userId: this.$store.state.userId,
       };
       axios
         .post("http://localhost:3000/posts/comments/", commentData)
