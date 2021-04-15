@@ -56,7 +56,6 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data.result);
           this.posts = res.data.result;
         })
         .catch((error) => {
@@ -96,6 +95,9 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 900px;
+  background-color: #fff;
 }
 .post-input {
   border-radius: 15px;

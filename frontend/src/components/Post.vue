@@ -1,22 +1,22 @@
 <template>
   <div class="post">
     <div class="post_header">
-      <p class="header_name">{{firstName}} {{lastName}}</p>
+      <p class="header_name">{{ firstName }} {{ lastName }}</p>
       <h2 class="header_tittle">{{ tittle }}</h2>
       <span class="header_time">{{ postDate }}</span>
     </div>
     <p class="post_text">
       {{ content }}
     </p>
-    <div v-for="comment in comments" :key="comment.id" class="post_comment">
-      <p class="comment_name">{{firstName}} {{lastName}}</p>
-      <p class="comment_text">
-        {{ comment.commentContent }}
-      </p>
-      <span class="comment_time">{{
-        dateTimeDisplay(comment.commentDate)
-      }}</span>
-    </div>
+    <Comment
+    v-for="comment in comments"
+      :key="comment.id"
+      :userId="comment.userId"
+      :commentDate="dateTimeDisplay(comment.commentDate)"
+      :commentContent="comment.commentContent"
+      :postId="comment.postId"
+      :id="comment.id">
+    </Comment>
     <div class="user_comment">
       <input
         v-model="commentContent"
@@ -39,25 +39,32 @@
 
 <script>
 import axios from "axios";
+import Comment from './Comment'
 
 export default {
-  props: ["userId", "content", "tittle", "id", "postDate"],
   name: "Post",
 
+  props: ["userId", "content", "tittle", "id", "postDate"],
+
+  components: {
+    Comment
+  },
+  
   data: () => {
     return {
       commentContent: "",
       comments: [],
-      lastName: '',
-      firstName: '',
+      firstName: "",
+      lastName: "",
+      NameComments: [],
     };
   },
   methods: {
-    getUser(userId) {
+    getUserPost(userId) {
       axios
         .get(`http://localhost:3000/users/${userId}`, {
           headers: {
-            Authorization: `token ${this.$store.state.tokenToCheck}`,
+            Authorization: `token ${this.$store.state.token}`,
           },
         })
         .then((res) => {
@@ -77,7 +84,7 @@ export default {
       axios
         .post("http://localhost:3000/posts/comments/", commentData)
         .then((res) => {
-          console.log(res)
+          console.log(res);
           this.getPostComments(commentData.postId);
           this.commentContent = "";
         })
@@ -86,15 +93,9 @@ export default {
         });
     },
     getPostComments(id) {
-      axios.get(`http://localhost:3000/posts/comments/${id}`)
-      .then((res) => {
+      axios.get(`http://localhost:3000/posts/comments/${id}`).then((res) => {
+        console.log(res.data.result);
         this.comments = res.data.result;
-        for (let i = 0; i < res.data.result.length; i++) {
-          const comment = res.data.result[i];
-          let userId = comment.userId
-          this.getUser(userId)
-          
-        }
       });
     },
     dateTimeDisplay(dateString) {
@@ -118,10 +119,10 @@ export default {
       return commentDate;
     },
   },
-  mounted () {
-    this.getUser(this.userId)
-    this.getPostComments(this.id)
-  }
+  mounted() {
+    this.getUserPost(this.userId);
+    this.getPostComments(this.id);
+  },
 };
 </script>
 
@@ -140,6 +141,7 @@ export default {
     .header_name {
       color: rgb(79, 175, 154);
       font-weight: bold;
+      font-size: 1.1em;
       margin-left: 10px;
     }
     .header_tittle {
@@ -157,42 +159,7 @@ export default {
     width: 100%;
     border-top: 2px solid rgb(79, 175, 154);
   }
-  .post_comment {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    min-height: 50px;
-    background-color: rgb(230, 230, 230);
-    border-top: 2px solid rgb(79, 175, 154);
-    .comment_name {
-      color: rgb(79, 175, 154);
-      font-weight: bold;
-      font-size: 0.9em;
-      width: 15%;
-      min-height: 30px;
-      height: 100%;
-      padding: 10px 5px 5px 0;
-      margin: 0 5px 0 10px;
-    }
-    .comment_text {
-      background-color: #fff;
-      border-radius: 10px;
-      font-size: 1em;
-      min-height: 30px;
-      width: 70%;
-      padding: 10px 0 5px 0;
-      margin: 10px 5px;
-    }
-    .comment_time {
-      font-size: 0.75em;
-      width: 15%;
-      height: 100%;
-      min-height: 30px;
-      padding: 10px 0 5px 5px;
-      margin: 0 10px 0 5px;
-    }
-  }
+  
   .user_comment {
     border-top: 3px solid rgb(79, 175, 154);
     background-color: rgb(230, 230, 230);
@@ -212,6 +179,20 @@ export default {
       cursor: pointer;
       padding: 5px 15px;
       margin: 0 10px;
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .post_header {
+    flex-direction: column;
+    .header_name {
+      margin: 5px;
+    }
+    .header_tittle {
+      margin: 5px ;
+    }
+    .header_time {
+      margin: 5px ;
     }
   }
 }

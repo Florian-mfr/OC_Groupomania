@@ -81,8 +81,10 @@ export default {
       axios
         .post("http://localhost:3000/users/signup", user)
         .then((res) => {
-          console.log(res)
-          this.$router.push({ path: "home" });
+          this.$store.state.userId = res.data.userId
+          this.$store.state.email = res.data.email
+          this.$store.state.token = res.data.token
+          this.$router.push({ path: "/home" });
         })
         .catch((error) => {
           console.log(error);
@@ -97,6 +99,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 900px;
+  background-color: #fff;
 }
 #form {
   margin: 50px 0;

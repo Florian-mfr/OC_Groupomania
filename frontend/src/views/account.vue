@@ -82,6 +82,9 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 900px;
+  background-color: #fff;
 }
 .account_options {
   display: flex;
