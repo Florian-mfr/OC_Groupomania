@@ -38,7 +38,7 @@ export default {
   methods: {
     getUser(userId) {
       axios
-        .get(`http://localhost:3000/users/${userId}`, {
+        .get(`http://localhost:3000/user/${userId}`, {
           headers: {
             Authorization: `token ${this.$store.state.token}`,
           },
@@ -56,7 +56,7 @@ export default {
         password: newPassword,
         userId: this.$store.state.userId
       }
-      axios.put('http://localhost:3000/users/changePassword', passwordObject, { headers: {
+      axios.put('http://localhost:3000/user/changePassword', passwordObject, { headers: {
                 'Authorization': `token ${this.$store.state.token}`
                 }})
       .then(res => {

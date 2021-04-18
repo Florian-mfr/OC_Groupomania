@@ -143,6 +143,12 @@ export default {
     },
     dateTimeDisplay(dateString) {
       let chars = dateString.split("");
+      let hours = parseInt(chars[11]+chars[12])
+      if(hours > 21) {
+        hours = '0' + hours-22
+      } else {
+        hours = hours + 2
+      } 
       let commentDate =
         "le " +
         chars[8] +
@@ -154,8 +160,7 @@ export default {
         chars[2] +
         chars[3] +
         " à " +
-        chars[11] +
-        chars[12] +
+        hours +
         "h" +
         chars[14] +
         chars[15];

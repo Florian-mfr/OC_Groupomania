@@ -29,3 +29,10 @@ exports.reportComment = (req, res, next) => {
       return res.status(201).json({ message: 'Commentaire signaler avec succès' });
     })
   };
+
+  exports.deleteComment = (req, res, next) => {
+    db.query(`DELETE FROM comments WHERE id=${req.params.id}`, (err, result, field) => {
+      if (err) throw (err);
+      return res.status(200).json({ message: 'Commentaire supprimer !' });
+    })
+  }

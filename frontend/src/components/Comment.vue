@@ -8,7 +8,7 @@
       <span class="comment_time"
         >{{ commentDate }}
         <button
-          @click.prevent="deletePost(id)"
+          @click.prevent="deleteComment(id)"
           v-if="userId == this.$store.state.userId"
           class="comment_button"
         >
@@ -37,6 +37,20 @@ export default {
     };
   },
   methods: {
+    deleteComment(id) {
+      console.log(id)
+      axios
+        .delete(`http://localhost:3000/comment/${id}`,
+        { headers: {
+                'Authorization': `token ${this.$store.state.token}`
+                }})
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     reportContent(id) {
       axios
         .put(`http://localhost:3000/comment/report/${id}`,

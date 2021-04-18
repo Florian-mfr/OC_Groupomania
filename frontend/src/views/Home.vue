@@ -80,10 +80,30 @@ export default {
         });
     },
     dateTimeDisplay(dateString) {
-      let chars = dateString.split('')
-      let postDate = "le "+chars[8]+chars[9]+'/'+chars[5]+chars[6]+'/'+chars[2]+chars[3]+' à '+chars[11]+chars[12]+'h'+chars[14]+chars[15]
-      return postDate
-    }
+      let chars = dateString.split("");
+      let hours = parseInt(chars[11]+chars[12])
+      if(hours > 21) {
+        hours = '0' + hours-22
+      } else {
+        hours = hours + 2
+      } 
+      let commentDate =
+        "le " +
+        chars[8] +
+        chars[9] +
+        "/" +
+        chars[5] +
+        chars[6] +
+        "/" +
+        chars[2] +
+        chars[3] +
+        " à " +
+        hours +
+        "h" +
+        chars[14] +
+        chars[15];
+      return commentDate;
+    },
   },
   mounted() {
     this.getAllPosts()

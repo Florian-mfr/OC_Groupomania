@@ -16,10 +16,10 @@
           <span class="header_id">userId: {{ post.userId }}</span>
           <span class="header_time">{{ dateTimeDisplay(post.postDate) }} </span>
           <div class="header_button">
-            <button class="button">
+            <button class="button" @click.prevent="deletePost(post.id)">
               <i class="fas fa-trash-alt"></i>
             </button>
-            <button class="button" @click.prevent="reportContent(id)">
+            <button class="button" @click.prevent="cancelReportPost(post.id)">
               <i class="fas fa-exclamation-triangle"></i>
             </button>
             <button class="button">
@@ -38,10 +38,10 @@
           <span class="header_id">userId: {{ comment.userId }}</span>
           <span class="header_time">{{ dateTimeDisplay(comment.commentDate) }} </span>
           <div class="header_button">
-            <button class="button">
+            <button class="button" @click.prevent="deleteComment(comment.id)">
               <i class="fas fa-trash-alt"></i>
             </button>
-            <button class="button" @click.prevent="reportContent(id)">
+            <button class="button" @click.prevent="cancelReportComment(comment.id)">
               <i class="fas fa-exclamation-triangle"></i>
             </button>
             <button class="button">
@@ -74,6 +74,60 @@ export default {
     Header,
   },
   methods: {
+    cancelReportComment(id) {
+      axios
+        .put(`http://localhost:3000/admin/comment/${id}`,
+        { headers: {
+                'Authorization': `token ${this.$store.state.token}`
+                }})
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    cancelReportPost(id) {
+      axios
+        .put(`http://localhost:3000/admin/post/${id}`,
+        { headers: {
+                'Authorization': `token ${this.$store.state.token}`
+                }})
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    deletePost(id) {
+      console.log(id)
+      axios
+        .delete(`http://localhost:3000/post/${id}`,
+        { headers: {
+                'Authorization': `token ${this.$store.state.token}`
+                }})
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    deleteComment(id) {
+      console.log(id)
+      axios
+        .delete(`http://localhost:3000/comment/${id}`,
+        { headers: {
+                'Authorization': `token ${this.$store.state.token}`
+                }})
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     getReportedPosts() {
       axios
         .get(`http://localhost:3000/admin/post`, {
@@ -129,22 +183,6 @@ export default {
   },
   mounted() {},
 };
-/*<div class="post" v-for="post in posts" :key="post.id">
-        <div class="post_header">
-          <span class="header_id">userId: {{ post.userId }}</span>
-          <span class="header_time">{{ post.postDate }} </span>
-          <button class="header_button">
-            <i class="fas fa-trash-alt"></i>
-          </button>
-          <button class="header_button" @click.prevent="reportContent(id)">
-            <i class="fas fa-exclamation-triangle"></i>
-          </button>
-        </div>
-        <div class="post_content">
-            <h2 class="content_tittle">{{ post.tittle }}</h2>
-            <p class="content_text">{{ post.content }}</p>
-        </div>
-    </div>*/
 </script>
 
 <style lang='scss'>

@@ -5,6 +5,9 @@
         <img src="../assets/logo_couleur.png" alt="" class="logo_img" />
       </router-link>
     </div>
+    <span class="header_admin" v-if="this.admin==1">
+      <router-link to="/admin"> Admin </router-link>
+    </span>
 
     <span class="header_account">
       <router-link to="/account"> Mon compte </router-link>
@@ -16,14 +19,37 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: "Header",
+  data: () => {
+    return {
+      admin: ''
+    }
+  },
   methods: {
     logOut () {
       this.$store.commit('LOGOUT')
       this.$router.push({path: '/'})
+    },
+    isAdmin() {
+      axios
+        .get(`http://localhost:3000/user/${this.$store.state.userId}`, {
+          headers: {
+            Authorization: `token ${this.$store.state.token}`,
+          },
+        })
+        .then((res) => {
+          this.admin = res.data.result[0].isAdmin;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   },
+  mounted() {
+    this.isAdmin()
+  }
 };
 </script>
 
@@ -45,6 +71,15 @@ a {
   border-radius: 15px;
   margin: 20px 0;
   font-family: Arial, Helvetica, sans-serif;
+}
+.header_admin {
+  position: absolute;
+  top: 10px;
+  right: 45%;
+  background-color: rgb(216, 140, 140);
+  border-radius: 5px;
+  padding: 5px;
+  font-weight: bold;
 }
 .header_logo {
   display: flex;

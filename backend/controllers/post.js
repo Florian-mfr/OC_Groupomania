@@ -22,10 +22,10 @@ exports.getAllPosts = (req, res, next) => {
 };
 
 exports.reportPost = (req, res, next) => {
-  db.query(`UPDATE posts SET reported="1" WHERE id=${req.params.id}`, (err, result, field) => {
-    if (err) throw (err);
-    return res.status(201).json({ message: 'Post signaler avec succès' });
-  })
+    db.query(`UPDATE posts SET reported="1" WHERE id=${req.params.id}`, (err, result, field) => {
+      if (err) throw (err);
+      return res.status(201).json({ message: 'Post signaler avec succès' });
+    })
 };
 
 exports.deletePost = (req, res, next) => {
