@@ -53,7 +53,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("http://localhost:3000/users/login", user)
+        .post("http://localhost:3000/user/login", user)
         .then((res) => {
           console.log(res)
           this.$store.state.userId = res.data.userId
@@ -75,6 +75,7 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100vh;
   max-width: 900px;
   background-color: #fff;
 }

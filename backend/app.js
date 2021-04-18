@@ -5,6 +5,8 @@ const cors = require('cors');
 
 const userRoutes = require("./routes/user");
 const postRoutes = require("./routes/post");
+const commentRoutes = require("./routes/comment");
+const adminRoutes = require("./routes/admin");
 
 const app = express();
 
@@ -18,7 +20,9 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(cors());
 
-app.use('/users', userRoutes);
-app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
+app.use('/post', postRoutes);
+app.use('/comment', commentRoutes);
+app.use('/admin', adminRoutes)
 
 module.exports = app;

@@ -49,7 +49,7 @@ export default {
   methods: {
     getAllPosts() {
       axios
-        .get("http://localhost:3000/posts/", {
+        .get("http://localhost:3000/post/", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${this.$store.state.token}`,
@@ -68,9 +68,11 @@ export default {
         content: this.content,
         userId: this.$store.state.userId
       }
-      axios.post("http://localhost:3000/posts/", postData)
+      axios.post("http://localhost:3000/post/", postData)
       .then((res) => {
           console.log(res)
+          this.tittle = ''
+          this.content = ''
           this.getAllPosts()
         })
         .catch((error) => {

@@ -3,13 +3,26 @@
     <div class="post_header">
       <p class="header_name">{{ firstName }} {{ lastName }}</p>
       <h2 class="header_tittle">{{ tittle }}</h2>
-      <span class="header_time">{{ postDate }}</span>
+      <span class="header_time">{{ postDate }} 
+        <button
+        v-if="userId == this.$store.state.userId"
+        @click.prevent="deletePost(id)"
+        class="post_button">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+        <button class="post_button" @click.prevent="reportContent(id)">
+          <i class="fas fa-exclamation-triangle"></i>
+        </button>
+      </span>
     </div>
     <p class="post_text">
       {{ content }}
     </p>
-    <Comment
-    v-for="comment in comments"
+      <button class="comment_btn" @click.prevent="getPostComments(id), clicked=true">Afficher les commentaires</button>
+      <!--<button v-if="clicked=true" class="comment_btn" @click.prevent="clicked=false">Masquer les commentaires</button>-->
+    <div v-if="clicked=true">
+      <Comment
+      v-for="comment in comments"
       :key="comment.id"
       :userId="comment.userId"
       :commentDate="dateTimeDisplay(comment.commentDate)"
@@ -34,6 +47,8 @@
         Publier
       </button>
     </div>
+    
+    </div>
   </div>
 </template>
 
@@ -57,12 +72,40 @@ export default {
       firstName: "",
       lastName: "",
       NameComments: [],
+      clicked: false
     };
   },
   methods: {
+    reportContent(id) {
+      axios
+        .put(`http://localhost:3000/post/report/${id}`,
+        { headers: {
+                'Authorization': `token ${this.$store.state.token}`
+                }})
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    deletePost(id) {
+      console.log(id)
+      axios
+        .delete(`http://localhost:3000/post/${id}`,
+        { headers: {
+                'Authorization': `token ${this.$store.state.token}`
+                }})
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     getUserPost(userId) {
       axios
-        .get(`http://localhost:3000/users/${userId}`, {
+        .get(`http://localhost:3000/user/${userId}`, {
           headers: {
             Authorization: `token ${this.$store.state.token}`,
           },
@@ -82,7 +125,7 @@ export default {
         userId: this.$store.state.userId,
       };
       axios
-        .post("http://localhost:3000/posts/comments/", commentData)
+        .post("http://localhost:3000/comment/", commentData)
         .then((res) => {
           console.log(res);
           this.getPostComments(commentData.postId);
@@ -93,7 +136,7 @@ export default {
         });
     },
     getPostComments(id) {
-      axios.get(`http://localhost:3000/posts/comments/${id}`).then((res) => {
+      axios.get(`http://localhost:3000/comment/${id}`).then((res) => {
         console.log(res.data.result);
         this.comments = res.data.result;
       });
@@ -121,7 +164,6 @@ export default {
   },
   mounted() {
     this.getUserPost(this.userId);
-    this.getPostComments(this.id);
   },
 };
 </script>
@@ -149,8 +191,26 @@ export default {
       margin: 5px 0px;
     }
     .header_time {
+      display: flex;
+      align-items: center;
       font-size: 0.8em;
       margin-right: 10px;
+      .post_button {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      padding: 6px;
+      background-color: rgb(79, 175, 154);
+      color: #fff;
+      border-radius: 4px;
+      margin: 5px;
+      border: none;
+      cursor: pointer;
+      .fas {
+        font-size: 1.1em;
+      }
+    }
     }
   }
   .post_text {
@@ -171,16 +231,16 @@ export default {
       height: 30px;
       border-radius: 10px;
     }
-    .comment_btn {
+  }
+  .comment_btn {
       background-color: rgb(79, 175, 154);
       color: rgb(255, 255, 255);
       border: none;
       border-radius: 5px;
       cursor: pointer;
       padding: 5px 15px;
-      margin: 0 10px;
+      margin: 5px 10px;
     }
-  }
 }
 @media screen and (max-width: 600px) {
   .post_header {

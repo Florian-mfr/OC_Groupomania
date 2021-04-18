@@ -79,7 +79,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("http://localhost:3000/users/signup", user)
+        .post("http://localhost:3000/user/signup", user)
         .then((res) => {
           this.$store.state.userId = res.data.userId
           this.$store.state.email = res.data.email
@@ -100,6 +100,7 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100vh;
   max-width: 900px;
   background-color: #fff;
 }

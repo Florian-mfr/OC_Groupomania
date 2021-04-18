@@ -2,7 +2,6 @@ const db = require('../dbConnect.js')
 const fs = require('fs');
 
 exports.createPost = (req, res, next) => {
-
   let tittle = req.body.tittle
   let content = req.body.content
   let userId = req.body.userId
@@ -22,25 +21,19 @@ exports.getAllPosts = (req, res, next) => {
   })
 };
 
-exports.createComment = (req, res, next) => {
-
-  let postId = req.body.postId
-  let commentContent = req.body.content
-  let userId = req.body.userId
-
-  let data = [postId, commentContent, userId]
-
-  db.query('INSERT INTO comments SET postId=?, commentContent=?, userId=? ', data, (err, result, field) => {
+exports.reportPost = (req, res, next) => {
+  db.query(`UPDATE posts SET reported="1" WHERE id=${req.params.id}`, (err, result, field) => {
     if (err) throw (err);
-    return res.status(201).json({ message: 'Commentaire enregistré !' });
+    return res.status(201).json({ message: 'Post signaler avec succès' });
+  })
+};
+
+exports.deletePost = (req, res, next) => {
+  db.query(`DELETE FROM posts WHERE id=${req.params.id}`, (err, result, field) => {
+    if (err) throw (err);
+    return res.status(200).json({ message: 'Post supprimer !' });
   })
 }
 
-exports.getPostComments = (req, res, next) => {
-  let postId = req.params.id
-  db.query('SELECT * FROM comments WHERE postId=?',postId ,(err, result, field) => {
-    if (err) throw (err);
-    return res.status(200).json({ result });
-  })
-};
+
 
