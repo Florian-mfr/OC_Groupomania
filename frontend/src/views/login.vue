@@ -56,8 +56,9 @@ export default {
         .post("http://localhost:3000/user/login", user)
         .then((res) => {
           console.log(res)
+          localStorage.setItem('userId', res.data.userId)
+          localStorage.setItem('token', res.data.token)
           this.$store.state.userId = res.data.userId
-          this.$store.state.email = res.data.email
           this.$store.state.token = res.data.token
           this.$router.push({ path: "/home" });
         })

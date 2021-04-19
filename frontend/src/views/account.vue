@@ -36,6 +36,14 @@ export default {
     }
   },
   methods: {
+    isLogged() {
+        if(localStorage.getItem('token') == null) {
+              this.$router.push({ path: "/" });
+        } else {
+          this.$store.state.token = localStorage.getItem('token')
+          this.$store.state.userId = localStorage.getItem('userId')
+        }
+    },
     getUser(userId) {
       axios
         .get(`http://localhost:3000/user/${userId}`, {
@@ -71,6 +79,7 @@ export default {
   },
   mounted() {
     this.getUser(this.$store.state.userId)
+    this.isLogged()
   }
 };
 </script>

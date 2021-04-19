@@ -74,6 +74,14 @@ export default {
     Header,
   },
   methods: {
+    isLogged() {
+        if(localStorage.getItem('token') == null) {
+              this.$router.push({ path: "/" });
+        } else {
+          this.$store.state.token = localStorage.getItem('token')
+          this.$store.state.userId = localStorage.getItem('userId')
+        }
+    },
     cancelReportComment(id) {
       axios
         .put(`http://localhost:3000/admin/comment/${id}`,
@@ -181,7 +189,9 @@ export default {
       return commentDate;
     },
   },
-  mounted() {},
+  mounted() {
+    this.isLogged()
+  },
 };
 </script>
 

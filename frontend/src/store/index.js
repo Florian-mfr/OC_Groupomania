@@ -6,14 +6,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userId: '',
-    email: '',
     token: '',
   },
   mutations: {
     LOGOUT(state) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('userId')
       state.token = '';
       state.userId= '';
-      state.email= '';
     }
   },
   actions: {
