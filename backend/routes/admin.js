@@ -2,17 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 
 const adminCtrl = require('../controllers/admin');
 
 
-router.get('/post', /*auth,*/ adminCtrl.getReportedPosts);
-router.get('/comment', /*auth,*/ adminCtrl.getReportedComments);
-router.put('/post/:id', adminCtrl.cancelReportPost)
-router.put('/comment/:id', adminCtrl.cancelReportComment)
-
-
-/*router.put('/report/:id', commentCtrl.reportComment);
-router.post('/',/* auth, /*multer, commentCtrl.createComment);*/
+router.get('/post', auth, admin, adminCtrl.getReportedPosts);
+router.get('/comment', auth, admin, adminCtrl.getReportedComments);
+router.put('/post/:id', auth, admin, adminCtrl.cancelReportPost)
+router.put('/comment/:id', auth, admin, adminCtrl.cancelReportComment)
 
 module.exports = router;

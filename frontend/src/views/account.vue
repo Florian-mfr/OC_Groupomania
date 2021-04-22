@@ -8,12 +8,12 @@
         <span>Changer le mot de passe</span>
         <form action="">
           <label for="change password">Nouveau mot de passe :</label>
-          <input v-model="newPassword" type="text" class="password_input" />
+          <input type="password" v-model="newPassword" class="password_input" />
           <button @click.prevent="changePassword(newPassword)" class="password-btn">Valider</button>
         </form>
       </div>
       <div class="options_delete">
-        <button class="delete-btn">Supprimer mon compte</button>
+        <button class="delete-btn" @click.prevent="deleteUser($store.state.userId)">Supprimer mon compte</button>
       </div>
     </div>
   </div>
@@ -44,6 +44,21 @@ export default {
           this.$store.state.userId = localStorage.getItem('userId')
         }
     },
+    deleteUser(userId) {
+      console.log(userId)
+      axios
+        .delete(`http://localhost:3000/user/delete/${userId}`, 
+        { headers: {
+                'Authorization': `token ${this.$store.state.token}`
+                }})
+        .then((res) => {
+          console.log(res);
+          this.$router.push({path:'/'})
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     getUser(userId) {
       axios
         .get(`http://localhost:3000/user/${userId}`, {
@@ -60,11 +75,11 @@ export default {
         });
     },
     changePassword(newPassword) {
-      let passwordObject = {
+      let object = {
         password: newPassword,
         userId: this.$store.state.userId
       }
-      axios.put('http://localhost:3000/user/changePassword', passwordObject, { headers: {
+      axios.put('http://localhost:3000/user/changePassword', object, { headers: {
                 'Authorization': `token ${this.$store.state.token}`
                 }})
       .then(res => {
@@ -78,8 +93,9 @@ export default {
     }
   },
   mounted() {
-    this.getUser(this.$store.state.userId)
     this.isLogged()
+    this.getUser(this.$store.state.userId)
+    
   }
 };
 </script>

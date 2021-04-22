@@ -28,6 +28,14 @@ export default {
     }
   },
   methods: {
+    isLogged() {
+        if(localStorage.getItem('token') == null) {
+              this.$router.push({ path: "/" });
+        } else {
+          this.$store.state.token = localStorage.getItem('token')
+          this.$store.state.userId = localStorage.getItem('userId')
+        }
+    },
     logOut () {
       this.$store.commit('LOGOUT')
       this.$router.push({path: '/'})
@@ -48,6 +56,7 @@ export default {
     }
   },
   mounted() {
+    this.isLogged()
     this.isAdmin()
   }
 };

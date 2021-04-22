@@ -11,7 +11,7 @@
     </div>
     <h1>Posts :</h1>
     <div class="div_display">
-      <div class="post" v-for="post in posts" :key="post">
+      <div class="post" v-for="post in posts" :key="post.id">
         <div class="post_header">
           <span class="header_id">userId: {{ post.userId }}</span>
           <span class="header_time">{{ dateTimeDisplay(post.postDate) }} </span>
@@ -33,7 +33,7 @@
         </div>
       </div>
       <h1>Commentaires :</h1>
-      <div class="comment" v-for="comment in comments" :key="comment">
+      <div class="comment" v-for="comment in comments" :key="comment.id">
         <div class="comment_header">
           <span class="header_id">userId: {{ comment.userId }}</span>
           <span class="header_time">{{ dateTimeDisplay(comment.commentDate) }} </span>
@@ -83,8 +83,9 @@ export default {
         }
     },
     cancelReportComment(id) {
+      console.log(this.$store.state.userId)
       axios
-        .put(`http://localhost:3000/admin/comment/${id}`,
+        .put(`http://localhost:3000/admin/comment/${id}`, {userId: this.$store.state.userId},
         { headers: {
                 'Authorization': `token ${this.$store.state.token}`
                 }})
@@ -97,7 +98,7 @@ export default {
     },
     cancelReportPost(id) {
       axios
-        .put(`http://localhost:3000/admin/post/${id}`,
+        .put(`http://localhost:3000/admin/post/${id}`, {userId: this.$store.state.userId},
         { headers: {
                 'Authorization': `token ${this.$store.state.token}`
                 }})
@@ -111,7 +112,7 @@ export default {
     deletePost(id) {
       console.log(id)
       axios
-        .delete(`http://localhost:3000/post/${id}`,
+        .delete(`http://localhost:3000/post/${id}`, 
         { headers: {
                 'Authorization': `token ${this.$store.state.token}`
                 }})
@@ -125,7 +126,7 @@ export default {
     deleteComment(id) {
       console.log(id)
       axios
-        .delete(`http://localhost:3000/comment/${id}`,
+        .delete(`http://localhost:3000/comment/${id}`, 
         { headers: {
                 'Authorization': `token ${this.$store.state.token}`
                 }})

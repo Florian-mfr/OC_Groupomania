@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     deleteComment(id) {
-      console.log(id)
       axios
         .delete(`http://localhost:3000/comment/${id}`,
         { headers: {
@@ -52,8 +51,11 @@ export default {
         });
     },
     reportContent(id) {
+      const object = {
+        userId: this.$store.state.userId
+      }
       axios
-        .put(`http://localhost:3000/comment/report/${id}`,
+        .put(`http://localhost:3000/comment/report/${id}`, object,
         { headers: {
                 'Authorization': `token ${this.$store.state.token}`
                 }})
@@ -74,8 +76,6 @@ export default {
         .then((res) => {
           this.firstName = res.data.result[0].firstname;
           this.lastName = res.data.result[0].lastname;
-          //console.log(firstName + ' ' + lastName)
-          //return firstName + ' ' + lastName
         })
         .catch((error) => {
           console.log(error);

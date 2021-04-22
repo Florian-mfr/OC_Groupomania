@@ -8,7 +8,6 @@
           type="text"
           name="prenom"
           id="firstName"
-          required="required"
           v-model="firstName"
         />
       </div>
@@ -19,7 +18,6 @@
           type="text"
           name="nom"
           id="lastName"
-          required="required"
           v-model="lastName"
         />
       </div>
@@ -30,7 +28,6 @@
           type="email"
           name="email"
           id="email"
-          required="required"
           v-model="email"
         />
       </div>
@@ -41,7 +38,6 @@
           type="password"
           name="password"
           id="password"
-          required="required"
           v-model="password"
         />
       </div>
@@ -58,6 +54,8 @@
 
 <script>
 import axios from "axios";
+//import useValidate from "@vuelidate/core"
+//import { required, email, minLength, maxLenght} from 'vuelidate/lib/validators'
 import logHeader from "../components/logHeader.vue";
 
 export default {
@@ -65,11 +63,45 @@ export default {
     logHeader,
   },
   data: () => ({
+    //v$: useValidate(),
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   }),
+  /*validations: () => {
+    return {
+      firstName: {
+      required,
+      minLength: minLength(2),
+      maxLenght: maxLenght(15),
+      syntaxe: value => {
+        return /^[a-z A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9-]{1,}$/.test(value);
+      }
+    },
+    lastName: {
+      required,
+      minLength: minLength(2),
+      maxLenght: maxLenght(15),
+      syntaxe: value => {
+        return /^[a-z A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9-]{1,}$/.test(value);
+      }
+    },
+    email: {
+      required,
+      email
+      },
+    password: {
+      required,
+      minLength: minLength(2),
+      maxLenght: maxLenght(15),
+      syntaxe: value => {
+        return /^[a-z A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9-]{1,}$/.test(value);
+      }
+    }
+    }
+    
+ },*/
   methods: {
     signup() {
       const user = {

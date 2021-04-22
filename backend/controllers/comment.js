@@ -2,6 +2,7 @@ const db = require('../dbConnect.js')
 const fs = require('fs');
 
 exports.createComment = (req, res, next) => {
+    console.log(req.body)
 
     let postId = req.body.postId
     let commentContent = req.body.content

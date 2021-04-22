@@ -40,7 +40,6 @@
       <button
         @click.prevent="
           sendComment(id);
-          getPostComments(id);
         "
         class="comment_btn"
       >
@@ -77,8 +76,11 @@ export default {
   },
   methods: {
     reportContent(id) {
+      const object = {
+        userId: this.$store.state.userId
+      }
       axios
-        .put(`http://localhost:3000/post/report/${id}`,
+        .put(`http://localhost:3000/post/report/${id}`, object,
         { headers: {
                 'Authorization': `token ${this.$store.state.token}`
                 }})
@@ -90,7 +92,6 @@ export default {
         });
     },
     deletePost(id) {
-      console.log(id)
       axios
         .delete(`http://localhost:3000/post/${id}`,
         { headers: {
@@ -119,16 +120,20 @@ export default {
         });
     },
     sendComment(id) {
-      const commentData = {
+      const object = {
         content: this.commentContent,
         postId: id,
         userId: this.$store.state.userId,
       };
       axios
-        .post("http://localhost:3000/comment/", commentData)
+        .post("http://localhost:3000/comment/", object, {
+          headers: {
+            Authorization: `token ${this.$store.state.token}`,
+          },
+        })
         .then((res) => {
           console.log(res);
-          this.getPostComments(commentData.postId);
+          this.getPostComments(object.postId);
           this.commentContent = "";
         })
         .catch((error) => {
@@ -136,7 +141,11 @@ export default {
         });
     },
     getPostComments(id) {
-      axios.get(`http://localhost:3000/comment/${id}`).then((res) => {
+      axios.get(`http://localhost:3000/comment/${id}`, {
+          headers: {
+            Authorization: `token ${this.$store.state.token}`,
+          },
+        }).then((res) => {
         console.log(res.data.result);
         this.comments = res.data.result;
       });

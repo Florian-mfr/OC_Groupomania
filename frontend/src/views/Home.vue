@@ -71,12 +71,15 @@ export default {
         });
         },
     createPost() {
-      const postData = {
+      const object = {
         tittle: this.tittle,
         content: this.content,
         userId: this.$store.state.userId
       }
-      axios.post("http://localhost:3000/post/", postData)
+      axios.post("http://localhost:3000/post/", object,
+       {headers: {
+            Authorization: `Bearer ${this.$store.state.token}`,
+          }})
       .then((res) => {
           console.log(res)
           this.tittle = ''

@@ -76,3 +76,10 @@ exports.changePassword = (req, res, next) => {
         return res.status(200).json({ message: 'Le mot de passe a bien été changé '});
     })
 }
+
+exports.deleteUser = (req, res, next) => {
+    db.query(`DELETE FROM users WHERE id=${req.params.id}`, (err, result, field) => {
+        if (err) throw (err);
+        return res.status(200).json({ message: 'Utilisateur supprimer !' });
+      })
+}
