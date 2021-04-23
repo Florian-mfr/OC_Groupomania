@@ -197,6 +197,8 @@ export default {
 </script>
 
 <style lang='scss'>
+@import "../sass/variables";
+
 #admin {
   display: flex;
   flex-direction: column;
@@ -211,7 +213,7 @@ export default {
     justify-content: space-around;
     width: 300px;
     .display_btn {
-      background-color: rgb(79, 175, 154);
+      background-color: $themes;
       color: rgb(255, 255, 255);
       border: none;
       height: 60px;
@@ -227,14 +229,14 @@ export default {
     justify-content: flex-start;
     align-items: center;
     margin: 10px;
-    border: 5px solid rgb(79, 175, 154);
+    border: 5px solid $themes;
     border-radius: 15px;
 
     .post_header {
       display: flex;
       flex-direction: column;
       margin: 5px;
-      border-right: 2px solid rgb(79, 175, 154);
+      border-right: 2px solid $themes;
       .header_id,
       .header_time {
         margin: 5px;
@@ -249,7 +251,7 @@ export default {
           justify-content: center;
           align-items: center;
           padding: 6px;
-          background-color: rgb(79, 175, 154);
+          background-color: $themes;
           color: #fff;
           border-radius: 4px;
           margin: 5px;
@@ -274,14 +276,14 @@ export default {
     justify-content: flex-start;
     align-items: center;
     margin: 10px;
-    border: 5px solid rgb(79, 175, 154);
+    border: 5px solid $themes;
     border-radius: 15px;
 
     .comment_header {
       display: flex;
       flex-direction: column;
       margin: 5px;
-      border-right: 2px solid rgb(79, 175, 154);
+      border-right: 2px solid $themes;
       .header_id,
       .header_time {
         margin: 5px;
@@ -296,7 +298,7 @@ export default {
           justify-content: center;
           align-items: center;
           padding: 6px;
-          background-color: rgb(79, 175, 154);
+          background-color: $themes;
           color: #fff;
           border-radius: 4px;
           margin: 5px;

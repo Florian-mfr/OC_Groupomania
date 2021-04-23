@@ -183,9 +183,11 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+@import "../sass/variables";
+
 .post {
   margin: 20px;
-  border: 5px solid rgb(79, 175, 154);
+  border: 5px solid $themes;
   border-radius: 15px;
   overflow: hidden;
   width: 90%;
@@ -195,7 +197,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     .header_name {
-      color: rgb(79, 175, 154);
+      color: $themes;
       font-weight: bold;
       font-size: 1.1em;
       margin-left: 10px;
@@ -215,7 +217,7 @@ export default {
       justify-content: center;
       align-items: center;
       padding: 6px;
-      background-color: rgb(79, 175, 154);
+      background-color: $themes;
       color: #fff;
       border-radius: 4px;
       margin: 5px;
@@ -231,11 +233,11 @@ export default {
     padding: 30px 0;
     margin: 5px 0;
     width: 100%;
-    border-top: 2px solid rgb(79, 175, 154);
+    border-top: 2px solid $themes;
   }
   
   .user_comment {
-    border-top: 3px solid rgb(79, 175, 154);
+    border-top: 3px solid $themes;
     background-color: rgb(230, 230, 230);
     padding: 10px 0;
     .comment_input {
@@ -247,7 +249,7 @@ export default {
     }
   }
   .comment_btn {
-      background-color: rgb(79, 175, 154);
+      background-color: $themes;
       color: rgb(255, 255, 255);
       border: none;
       border-radius: 5px;

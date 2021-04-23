@@ -9,6 +9,7 @@
           name="prenom"
           id="firstName"
           v-model="firstName"
+          placeholder="Prénom"
         />
       </div>
       <br />
@@ -19,6 +20,7 @@
           name="nom"
           id="lastName"
           v-model="lastName"
+          placeholder="Nom"
         />
       </div>
       <br />
@@ -29,6 +31,7 @@
           name="email"
           id="email"
           v-model="email"
+          placeholder="Adresse Email"
         />
       </div>
       <br />
@@ -39,6 +42,7 @@
           name="password"
           id="password"
           v-model="password"
+          placeholder="Mot de passe"
         />
       </div>
       <br />
@@ -127,6 +131,8 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+@import "../sass/variables";
+
 #signup {
   display: flex;
   flex-direction: column;
@@ -148,11 +154,11 @@ export default {
     height: 20px;
     width: 200px;
     border: 2px solid rgb(0, 0, 0);
-    border-radius: 10px;
+    border-radius: 5px;
   }
   #form-btn {
     border-style: none;
-    background-color: rgb(79, 175, 154);
+    background-color: $themes;
     color: #fff;
     padding: 10px 25px;
     border-radius: 15px;

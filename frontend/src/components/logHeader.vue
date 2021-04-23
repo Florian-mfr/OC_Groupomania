@@ -23,6 +23,8 @@ export default {
 </script>
 
 <style lang='scss'>
+@import "../sass/variables";
+
 *,
 a {
   text-decoration: none;
@@ -36,7 +38,7 @@ a {
   grid-template-rows: 80px;
   width: 90%;
   max-width: 800px;
-  border: 5px solid rgb(79, 175, 154);
+  border: 5px solid $themes;
   border-radius: 15px;
   margin: 20px 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -51,12 +53,12 @@ a {
 }
 .header_login {
   font-weight: bold;
-  color: rgb(79, 175, 154);
+  color: $themes;
   margin: 5px;
 }
 .header_signup {
   font-weight: bold;
-  color: rgb(79, 175, 154);
+  color: $themes;
   margin: 5px;
 }
 

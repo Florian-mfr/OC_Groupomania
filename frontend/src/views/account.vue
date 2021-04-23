@@ -8,7 +8,7 @@
         <span>Changer le mot de passe</span>
         <form action="">
           <label for="change password">Nouveau mot de passe :</label>
-          <input type="password" v-model="newPassword" class="password_input" />
+          <input type="password" v-model="newPassword" class="password_input" placeholder="Nouveau mot de passe"/>
           <button @click.prevent="changePassword(newPassword)" class="password-btn">Valider</button>
         </form>
       </div>
@@ -102,6 +102,8 @@ export default {
 
 
 <style scoped lang='scss'>
+@import "../sass/variables";
+
 #account {
   display: flex;
   flex-direction: column;
@@ -118,7 +120,7 @@ export default {
   align-items: center;
   padding: 50px 0;
   margin: 20px;
-  border: 5px solid rgb(79, 175, 154);
+  border: 5px solid $themes;
   border-radius: 15px;
   overflow: hidden;
   width: 90%;
@@ -145,13 +147,13 @@ export default {
       input {
         border-style: none;
         border-radius: 5px;
-        border: 2px solid rgb(79, 175, 154);
+        border: 2px solid $themes;
         height: 25px;
         margin: 5px 0;
       }
       .password-btn {
         border-style: none;
-        background-color: rgb(79, 175, 154);
+        background-color: $themes;
         color: #fff;
         padding: 10px 25px;
         border-radius: 15px;
@@ -178,7 +180,7 @@ export default {
     .options_delete {
       width: 100%;
       padding-top: 20px;
-      border-top: 2px solid rgb(79, 175, 154);
+      border-top: 2px solid $themes;
     }
   }
 }

@@ -13,18 +13,34 @@ exports.signup = (req, res, next) => {
     let email = req.body.email
     let password = req.body.password
 
-    let hash = crypto.createHmac('sha256', password)
-        .update('15h64luy4qze5gj46')
-        .digest('hex');
+    let generalRegex = /^[a-z A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9-']{2,}$/
+    let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-    let data = [firstname, lastname, email, hash]
+    let verification = [
+        emailRegex.test(email),
+        generalRegex.test(firstname),
+        generalRegex.test(lastname),
+        generalRegex.test(password),
+    ]
 
-    db.query('INSERT INTO users SET firstname=?, lastname=?, email=?, password=?', data, (err, user, field) => {
-        if (err) throw err;
-        if (user) {
-            console.log('Inscription réussi ! ')
-        }
-    })
+    if (verification.every(Boolean)) {
+        let hash = crypto.createHmac('sha256', password)
+            .update('15h64luy4qze5gj46')
+            .digest('hex');
+
+        let data = [firstname, lastname, email, hash]
+
+        db.query('INSERT INTO users SET firstname=?, lastname=?, email=?, password=?', data, (err, user, field) => {
+            if (err) throw err;
+            if (user) {
+                console.log('Inscription réussi ! ')
+            }
+        })
+    } else {
+        return res.status(500).json({ message: 'Saisie invalide' });
+    }
+
+
 }
 
 exports.login = (req, res, next) => {
@@ -32,7 +48,16 @@ exports.login = (req, res, next) => {
     let email = req.body.email
     let password = req.body.password
 
-    const hash = crypto.createHmac('sha256', password)
+    let generalRegex = /^[a-z A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9-']{2,}$/
+    let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+    let verification = [
+        emailRegex.test(email),
+        generalRegex.test(password),
+    ]
+
+    if (verification.every(Boolean)) {
+        const hash = crypto.createHmac('sha256', password)
         .update('15h64luy4qze5gj46')
         .digest('hex');
 
@@ -53,6 +78,10 @@ exports.login = (req, res, next) => {
             });
         }
     })
+    } else {
+        return res.status(500).json({ message: 'Saisie invalide' });
+    }
+    
 
 };
 
@@ -65,21 +94,31 @@ exports.getUser = (req, res, next) => {
 }
 
 exports.changePassword = (req, res, next) => {
+
     let password = req.body.password
 
-    const hash = crypto.createHmac('sha256', password)
+    let generalRegex = /^[a-z A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9-']{2,}$/
+
+    let verification = [
+        generalRegex.test(password),
+    ]
+    if (verification.every(Boolean)) {
+        const hash = crypto.createHmac('sha256', password)
         .update('15h64luy4qze5gj46')
         .digest('hex');
 
     db.query(`UPDATE users SET password="${hash}" WHERE id="${req.body.userId}"`, (err, result, field) => {
-        if(err) throw err;
-        return res.status(200).json({ message: 'Le mot de passe a bien été changé '});
+        if (err) throw err;
+        return res.status(200).json({ message: 'Le mot de passe a bien été changé ' });
     })
-}
+    } else {
+        return res.status(500).json({ message: 'Saisie invalide' });
+    }
+  }
 
 exports.deleteUser = (req, res, next) => {
     db.query(`DELETE FROM users WHERE id=${req.params.id}`, (err, result, field) => {
         if (err) throw (err);
         return res.status(200).json({ message: 'Utilisateur supprimer !' });
-      })
+    })
 }

@@ -124,6 +124,8 @@ export default {
 </script>
 
 <style lang='scss'>
+@import "../sass/variables";
+
 #home {
   display: flex;
   flex-direction: column;
@@ -135,7 +137,7 @@ export default {
 }
 .post-input {
   border-radius: 15px;
-  background-color: rgb(79, 175, 154);
+  background-color: $themes;
   width: 90%;
   max-width: 450px;
   margin: 10px 0;
@@ -157,7 +159,7 @@ export default {
   }
   .btn-publier {
     background-color: rgb(255, 255, 255);
-    color: rgb(79, 175, 154);
+    color: $themes;
     border: none;
     border-radius: 5px;
     cursor: pointer;

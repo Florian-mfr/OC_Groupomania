@@ -63,6 +63,8 @@ export default {
 </script>
 
 <style lang='scss'>
+@import "../sass/variables";
+
 *,
 a {
   text-decoration: none;
@@ -76,7 +78,7 @@ a {
   grid-template-rows: 80px;
   width: 90%;
   max-width: 800px;
-  border: 5px solid rgb(79, 175, 154);
+  border: 5px solid $themes;
   border-radius: 15px;
   margin: 20px 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -100,23 +102,24 @@ a {
 }
 .header_account {
   font-weight: bold;
-  color: rgb(79, 175, 154);
+  color: $themes;
   margin: 5px;
 }
 .header_disconnect {
   font-weight: bold;
-  color: rgb(79, 175, 154);
+  color: $themes;
   margin: 5px;
 }
 
 @media screen and (max-width: 750px) {
   #header {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 80px 50px;
+    grid-template-rows: 70px 40px;
     .header_logo {
       grid-column: 1/3;
       grid-row: 1;
       justify-content: center;
+      margin: 0;
       .logo_img {
         width: 220px;
         margin: 5px;

@@ -89,6 +89,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../sass/variables";
+
 .post_comment {
   display: flex;
   align-items: center;
@@ -96,9 +98,9 @@ export default {
   height: 100%;
   min-height: 50px;
   background-color: rgb(230, 230, 230);
-  border-top: 2px solid rgb(79, 175, 154);
+  border-top: 2px solid $themes;
   .comment_name {
-    color: rgb(79, 175, 154);
+    color: $themes;
     font-weight: bold;
     font-size: 0.9em;
     width: 15%;
@@ -129,7 +131,7 @@ export default {
       justify-content: center;
       align-items: center;
       padding: 6px;
-      background-color: rgb(79, 175, 154);
+      background-color: $themes;
       color: #fff;
       border-radius: 4px;
       margin: 5px;
