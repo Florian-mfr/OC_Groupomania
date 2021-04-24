@@ -16,7 +16,7 @@ Backend : NodeJS, MySQL
 
 ## initialisation frontend
 
-`cd ./backend` 
+`cd ./frontend` 
 
 `npm install` 
 
