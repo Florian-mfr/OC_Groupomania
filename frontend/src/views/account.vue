@@ -7,8 +7,8 @@
         <span>{{firstName}} {{lastName}}</span>
         <span>Changer le mot de passe</span>
         <form action="">
-          <label for="change password">Nouveau mot de passe :</label>
-          <input type="password" v-model="newPassword" class="password_input" placeholder="Nouveau mot de passe"/>
+          <label for="change_password">Nouveau mot de passe :</label>
+          <input id="change_password" type="password" v-model="newPassword" class="password_input" placeholder="Nouveau mot de passe"/>
           <button @click.prevent="changePassword(newPassword)" class="password-btn">Valider</button>
         </form>
       </div>
@@ -84,6 +84,7 @@ export default {
                 }})
       .then(res => {
         console.log(res)
+        this.newPassword=''
         alert('Mot de passe modifié avec succès')
       })
       .catch(error => {
@@ -165,7 +166,7 @@ export default {
   }
   .delete-btn {
     border-style: none;
-    background-color: rgb(206, 81, 81);
+    background-color: rgb(143, 0, 0);
     color: #fff;
     padding: 10px 25px;
     border-radius: 15px;

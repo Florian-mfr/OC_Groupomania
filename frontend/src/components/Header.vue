@@ -2,7 +2,7 @@
   <div id="header">
     <h1 href="" class="header_logo">
       <router-link to="/home">
-        <img src="../assets/logo_couleur.png" alt="logo" class="logo_img" />
+        <img src="..\assets\icon-left-font.png" alt="logo" class="logo_img" />
       </router-link>
     </h1>
     <span class="header_admin" v-if="this.admin==1">

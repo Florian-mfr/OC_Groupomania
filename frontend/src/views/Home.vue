@@ -2,14 +2,18 @@
   <div id="home">
     <Header></Header>
     <div class="post-input">
+      <label class="label" for="titre">Titre : </label><br>
       <input
+        id="titre"
         v-model="tittle"
         type="text"
         name="titre"
         placeholder="Titre du post"
         class="input_tittle"
       /><br />
+      <label class="label" for="contenu">Post : </label><br>
       <input
+      id="contenu"
         v-model="content"
         type="text"
         name="contenu"
@@ -33,7 +37,7 @@
 <script>
 import Header from "../components/Header";
 import Post from "../components/Post";
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
   name: "home",
@@ -143,6 +147,10 @@ export default {
   width: 90%;
   max-width: 450px;
   margin: 10px 0;
+  .label {
+    color: #fff;
+    margin-top: 10px;
+  }
   .input_tittle {
     border-style: none;
     border-radius: 5px;

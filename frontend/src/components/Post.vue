@@ -3,14 +3,22 @@
     <div class="post_header">
       <p class="header_name">{{ firstName }} {{ lastName }}</p>
       <h2 class="header_tittle">{{ tittle }}</h2>
-      <span class="header_time">{{ postDate }} 
+      <span class="header_time"
+        >{{ postDate }}
         <button
-        v-if="userId == this.$store.state.userId"
-        @click.prevent="deletePost(id)"
-        class="post_button">
+          v-if="userId == this.$store.state.userId"
+          @click.prevent="deletePost(id)"
+          class="post_button"
+          aria-expanded="false"
+          aria-label="Sort">
+        >
           <i class="fas fa-trash-alt"></i>
         </button>
-        <button class="post_button" @click.prevent="reportContent(id)">
+        <button 
+          class="post_button" 
+          @click.prevent="reportContent(id)"
+          aria-expanded="false"
+          aria-label="Sort">>
           <i class="fas fa-exclamation-triangle"></i>
         </button>
       </span>
@@ -18,36 +26,37 @@
     <p class="post_text">
       {{ content }}
     </p>
-      <button class="comment_btn" @click.prevent="getPostComments(id), clicked=true">Afficher les commentaires</button>
-      <!--<button v-if="clicked=true" class="comment_btn" @click.prevent="clicked=false">Masquer les commentaires</button>-->
-    <div v-if="clicked=true">
+    <button
+      class="comment_btn"
+      @click.prevent="getPostComments(id), (clicked = true)"
+    >
+      Afficher les commentaires
+    </button>
+    <!--<button v-if="clicked=true" class="comment_btn" @click.prevent="clicked=false">Masquer les commentaires</button>-->
+    <div v-if="(clicked = true)">
       <Comment
-      v-for="comment in comments"
-      :key="comment.id"
-      :userId="comment.userId"
-      :commentDate="dateTimeDisplay(comment.commentDate)"
-      :commentContent="comment.commentContent"
-      :postId="comment.postId"
-      :id="comment.id">
-    </Comment>
-    <div class="user_comment">
-      <input
-        v-model="commentContent"
-        type="text"
-        name="commentaire"
-        placeholder=" Votre commentaire..."
-        class="comment_input"
-      />
-      <button
-        @click.prevent="
-          sendComment(id);
-        "
-        class="comment_btn"
+        v-for="comment in comments"
+        :key="comment.id"
+        :userId="comment.userId"
+        :commentDate="dateTimeDisplay(comment.commentDate)"
+        :commentContent="comment.commentContent"
+        :postId="comment.postId"
+        :id="comment.id"
       >
-        Publier
-      </button>
-    </div>
-    
+      </Comment>
+      <div class="user_comment">
+        <label>.
+        <input
+          v-model="commentContent"
+          type="text"
+          name="commentaire"
+          placeholder=" Votre commentaire..."
+          class="comment_input"
+        /></label>
+        <button @click.prevent="sendComment(id)" class="comment_btn">
+          Publier
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -213,21 +222,21 @@ export default {
       font-size: 0.8em;
       margin-right: 10px;
       .post_button {
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: center;
-      padding: 6px;
-      background-color: $themes;
-      color: #fff;
-      border-radius: 4px;
-      margin: 5px;
-      border: none;
-      cursor: pointer;
-      .fas {
-        font-size: 1.1em;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        padding: 6px;
+        background-color: $themes;
+        color: #fff;
+        border-radius: 4px;
+        margin: 5px;
+        border: none;
+        cursor: pointer;
+        .fas {
+          font-size: 1.1em;
+        }
       }
-    }
     }
   }
   .post_text {
@@ -236,7 +245,7 @@ export default {
     width: 100%;
     border-top: 2px solid $themes;
   }
-  
+
   .user_comment {
     border-top: 3px solid $themes;
     background-color: rgb(230, 230, 230);
@@ -250,14 +259,14 @@ export default {
     }
   }
   .comment_btn {
-      background-color: $themes;
-      color: rgb(255, 255, 255);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      padding: 5px 15px;
-      margin: 5px 10px;
-    }
+    background-color: $themes;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 15px;
+    margin: 5px 10px;
+  }
 }
 @media screen and (max-width: 600px) {
   .post_header {
@@ -266,10 +275,10 @@ export default {
       margin: 5px;
     }
     .header_tittle {
-      margin: 5px ;
+      margin: 5px;
     }
     .header_time {
-      margin: 5px ;
+      margin: 5px;
     }
   }
 }

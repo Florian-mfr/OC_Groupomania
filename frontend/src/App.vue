@@ -15,6 +15,6 @@
   text-align: center;
   color: #2c3e50;
   width: 100%;
-  background-image: url(./assets/background.jpg);
+  background-image: url(./assets/1263205403.jpg);
 }
 </style>
