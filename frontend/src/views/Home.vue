@@ -5,12 +5,14 @@
       <input
         v-model="tittle"
         type="text"
+        name="titre"
         placeholder="Titre du post"
         class="input_tittle"
       /><br />
       <input
         v-model="content"
         type="text"
+        name="contenu"
         placeholder="Ecrivez votre post ici !"
         class="input_text"
       /><br />

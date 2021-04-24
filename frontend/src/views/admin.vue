@@ -3,10 +3,10 @@
     <Header></Header>
     <div class="div_btn">
       <button class="display_btn" @click.prevent="getReportedPosts()">
-        Afficher les posts signaler
+        Afficher les posts signalés
       </button>
       <button class="display_btn" @click.prevent="getReportedComments()">
-        Afficher les commentaires signaler
+        Afficher les commentaires signalés
       </button>
     </div>
     <h1>Posts :</h1>
@@ -91,6 +91,7 @@ export default {
                 }})
         .then((res) => {
           console.log(res);
+          this.getReportedComments()
         })
         .catch((error) => {
           console.log(error);
@@ -104,6 +105,7 @@ export default {
                 }})
         .then((res) => {
           console.log(res);
+          this.getReportedPosts()
         })
         .catch((error) => {
           console.log(error);
@@ -118,6 +120,7 @@ export default {
                 }})
         .then((res) => {
           console.log(res);
+          this.getReportedPosts()
         })
         .catch((error) => {
           console.log(error);
@@ -132,6 +135,7 @@ export default {
                 }})
         .then((res) => {
           console.log(res);
+          this.getReportedComments()
         })
         .catch((error) => {
           console.log(error);

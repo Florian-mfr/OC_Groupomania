@@ -7,7 +7,7 @@ exports.createComment = (req, res, next) => {
   let commentContent = req.body.content
   let userId = req.body.userId
 
-  let generalRegex = /^[a-z A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9-']{2,}$/
+  let generalRegex = /^[a-z A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9-'?!:;.,+]{2,255}$/
 
   let verification = [
     generalRegex.test(commentContent),

@@ -117,10 +117,8 @@ export default {
       axios
         .post("http://localhost:3000/user/signup", user)
         .then((res) => {
-          this.$store.state.userId = res.data.userId
-          this.$store.state.email = res.data.email
-          this.$store.state.token = res.data.token
-          this.$router.push({ path: "/home" });
+          console.log(res)
+          this.$router.push({ path: "/" });
         })
         .catch((error) => {
           console.log(error);

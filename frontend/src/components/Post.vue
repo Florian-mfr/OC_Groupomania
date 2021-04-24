@@ -34,6 +34,7 @@
       <input
         v-model="commentContent"
         type="text"
+        name="commentaire"
         placeholder=" Votre commentaire..."
         class="comment_input"
       />

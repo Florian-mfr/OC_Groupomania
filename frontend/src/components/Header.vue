@@ -1,10 +1,10 @@
 <template>
   <div id="header">
-    <div href="" class="header_logo">
+    <h1 href="" class="header_logo">
       <router-link to="/home">
-        <img src="../assets/logo_couleur.png" alt="" class="logo_img" />
+        <img src="../assets/logo_couleur.png" alt="logo" class="logo_img" />
       </router-link>
-    </div>
+    </h1>
     <span class="header_admin" v-if="this.admin==1">
       <router-link to="/admin"> Admin </router-link>
     </span>
@@ -87,7 +87,7 @@ a {
   position: absolute;
   top: 10px;
   right: 45%;
-  background-color: rgb(216, 140, 140);
+  background-color: rgb(231, 171, 171);
   border-radius: 5px;
   padding: 5px;
   font-weight: bold;
