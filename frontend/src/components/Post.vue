@@ -11,14 +11,14 @@
           class="post_button"
           aria-expanded="false"
           aria-label="Sort">
-        >
+        
           <i class="fas fa-trash-alt"></i>
         </button>
         <button 
           class="post_button" 
           @click.prevent="reportContent(id)"
           aria-expanded="false"
-          aria-label="Sort">>
+          aria-label="Sort">
           <i class="fas fa-exclamation-triangle"></i>
         </button>
       </span>
